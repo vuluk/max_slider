@@ -48,29 +48,33 @@ class ModBannersHelper
 		print_r("<p>tenemos ".$num_rows."renglones </p>");*/
  
 // Load the results as a list of stdClass objects (see later for more options on retrieving data).
-		$results = $db->loadObjectList();
+		$items = $db->loadObjectList();
 
 
 
-		/*foreach ($items as &$item)
+		foreach ($items as &$item)
 		{
 			$item->slug = $item->id . ':' . $item->alias;
-			$item->catslug = $item->catid . ':' . $item->category_alias;
 
 			if ($access || in_array($item->access, $authorised))
 			{
 				// We know that user has the privilege to view the article
-				$item->link = JRoute::_(ContentHelperRoute::getArticleRoute($item->slug, $item->catslug));
+				$item->link = JRoute::_(ContentHelperRoute::getArticleRoute($item->slug, $item->catid));
 			}
 			else
 			{
 				$item->link = JRoute::_('index.php?option=com_users&view=login');
 			}
-		}*/
 
-		$items=$results;
+			$data = ($item->fulltext == '') ? $item->introtext : $item->fulltext;
+			preg_match_all('/(img|src)\=(\"|\')[^\"\'\>]+/i', $data, $media);
+			unset($data);
+			$data=preg_replace('/(img|src)(\"|\'|\=\"|\=\')(.*)/i',"$3",$media[0]);
+			//print_r($data);
+			$item->image = $data[0];
 
-
+		}
+		print_r ($items);
 		return $items;
 	}
 }
