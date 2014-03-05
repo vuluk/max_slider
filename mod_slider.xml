@@ -32,119 +32,53 @@
 		<fields name="params">
 			<fieldset name="basic"
 				addfieldpath="/administrator/components/com_banners/models/fields">
-				<field
-					name="target"
-					type="list"
-					default="1"
-					label="MOD_SLIDER_FIELD_TARGET_LABEL"
-					description="MOD_SLIDER_FIELD_TARGET_DESC">
-					<option
-						value="0">JBROWSERTARGET_PARENT</option>
-					<option
-						value="1">JBROWSERTARGET_NEW</option>
-					<option
-						value="2">JBROWSERTARGET_POPUP</option>
-				</field>
 
-				<field
-					name="count"
-					type="integer"
-					first="1"
-					last="10"
-					step="1"
-					default="5"
-					label="MOD_SLIDER_FIELD_COUNT_LABEL"
-					description="MOD_SLIDER_FIELD_COUNT_DESC" />
-				<field
-					name="cid"
-					type="bannerclient"
-					label="MOD_SLIDER_FIELD_BANNERCLIENT_LABEL"
-					description="MOD_SLIDER_FIELD_BANNERCLIENT_DESC" />
+
 
 				<field
 					name="catid"
 					type="category"
-					extension="com_banners"
+					extension="com_content"
 					label="JCATEGORY"
-					multiple="true" size="5"
+					multiple="true" size="10"
 					default=""
 					description="MOD_SLIDER_FIELD_CATEGORY_DESC" >
 					<option value="">JOPTION_ALL_CATEGORIES</option>
 				</field>
 
 				<field
-					name="tag_search"
+					name="ordering"
+					type="list"
+					default="c_dsc"
+					label="MOD_SLIDER_FIELD_ORDERING_LABEL"
+					description="MOD_SLIDER_FIELD_ORDERING_DESC">
+					<option
+						value="c_dsc">MOD_ORDER_VALUE_RECENT_ADDED</option>
+					<option
+						value="m_dsc">MOD_ORDER_VALUE_RECENT_MODIFIED</option>
+				</field>
+
+				<field
+					name="limit"
+					type="text"
+					default="5"
+					label="MOD_SLIDER_FIELD_BOXWIDTH_LABEL"
+					description="MOD_SLIDER_FIELD_BOXWIDTH_DESC" />
+
+				<field
+					name="auto_slide"
 					type="radio"
 					class="btn-group btn-group-yesno"
 					default="0"
-					label="MOD_SLIDER_FIELD_TAG_LABEL"
-					description="MOD_SLIDER_FIELD_TAG_DESC">
+					label="MOD_SLIDE_AUTO_TAG_LABEL"
+					description="MOD_SLIDE_AUTO_TAG_DESC">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field
-					name="ordering"
-					type="list"
-					default="0"
-					label="MOD_SLIDER_FIELD_RANDOMISE_LABEL"
-					description="MOD_SLIDER_FIELD_RANDOMISE_DESC">
-					<option
-						value="0">MOD_SLIDER_VALUE_STICKYORDERING</option>
-					<option
-						value="random">MOD_SLIDER_VALUE_STICKYRANDOMISE</option>
-				</field>
 
-				<field
-					name="header_text"
-					type="textarea"
-					filter="safehtml"
-					rows="3"
-					cols="40"
-					label="MOD_SLIDER_FIELD_HEADER_LABEL"
-					description="MOD_SLIDER_FIELD_HEADER_DESC" />
 
-				<field
-					name="footer_text"
-					type="textarea"
-					filter="safehtml"
-					rows="3"
-					cols="40"
-					label="texto footer"
-					description="MOD_SLIDER_FIELD_FOOTER_DESC" />
-			</fieldset>
 
-			<fieldset
-				name="advanced">
-				<field
-					name="layout"
-					type="modulelayout"
-					label="JFIELD_ALT_LAYOUT_LABEL"
-					description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
-
-				<field
-					name="moduleclass_sfx"
-					type="textarea" rows="3"
-					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
-					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
-
-				<field
-					name="cache"
-					type="list"
-					default="1"
-					label="COM_MODULES_FIELD_CACHING_LABEL"
-					description="COM_MODULES_FIELD_CACHING_DESC">
-					<option
-						value="1">JGLOBAL_USE_GLOBAL</option>
-					<option
-						value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
-				</field>
-
-				<field
-					name="cache_time"
-					type="text"
-					default="900"
-					label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
-					description="COM_MODULES_FIELD_CACHE_TIME_DESC" />
+				
 			</fieldset>
 		</fields>
 	</config>

@@ -24,11 +24,17 @@ class ModBannersHelper
 		$db = JFactory::getDbo();
 		
 		$app = JFactory::getApplication();
+		$catid =  $params->get('catid', array());
+		$order =  $params->get('ordering');
+		//$auto_slide =  $params->get('auto_slide');
+		$limit = $params->get('limit');
 		$appParams = $app->getParams();
 		
 
 		$access = !JComponentHelper::getParams('com_content')->get('show_noauth');
 		$authorised = JAccess::getAuthorisedViewLevels(JFactory::getUser()->get('id'));
+		$sql = '('.$db->quoteName('introtext')." REGEXP '<img[^>]+>' OR ".$db->quoteName('fulltext'). " REGEXP '<img[^>]+>')";
+		$sql .=  " AND state=1 AND catid IN ('".implode("','",$catid)."') ";
 
 // Create a new query object.
 		$query = $db->getQuery(true);
@@ -37,11 +43,19 @@ class ModBannersHelper
 // Order it by the ordering field.
 		$query->select($db->quoteName(array('id', 'title', 'introtext', 'fulltext', 'catid', 'alias')));
 		$query->from($db->quoteName('#__content'));
-		$query->where($db->quoteName('introtext')." REGEXP '<img[^>]+>' OR ".$db->quoteName('fulltext'). " REGEXP '<img[^>]+>'");
-		$query->order('ordering ASC');
+		$query->where($sql);
+
+	    if($order == 'c_dsc'){
+			$query->order($db->quoteName('created') . ' DESC');	    			     
+		} else{ 			 
+			$query->order($db->quoteName('modified') . ' DESC');
+		}
+																													     
+
+
 
 // Reset the query using our newly populated query object.
-		$db->setQuery($query);
+		$db->setQuery($query, 0, $limit);
 		$db->execute();
 
 		/*$num_rows = $db->getNumRows();
